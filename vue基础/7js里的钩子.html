@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #ball {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        border-radius: 50%;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <button @click='isShow=!isShow'>点击</button>
+        <transition @before-enter='beforeEnter' @enter='enter' @after-enter='afterEnter'>
+            <div id="ball" v-show='isShow'></div>
+
+        </transition>
+    </div>
+</body>
+<script src=".\vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            isShow: 0
+        },
+        methods: {
+            beforeEnter(el) {
+                el.style.transform = 'translate(0, 0)'
+            },
+            enter(el, done) {
+                el.offsetWidth
+                el.style.transform = 'translate(250px,50px)'
+                el.style.transition = 'all 2s ease'
+                done()
+
+            },
+            afterEnter() {
+                this.isShow = !this.isShow
+            }
+
+            JW9268866
+        }
+    })
+</script>
+
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1 id='h1'>{{count}}</h1>
+        <button @click='count++'>click</button>
+        <button @click='des()'>kill</button>
+    </div>
+</body>
+<script src=".\vue.js"></script>
+
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            count: 0
+        },
+        methods: {
+            des() {
+                vm.$destroy()
+            }
+        },
+        beforeCreate() { //在创建元素前执行
+            console.log('beforeCreate', this.$el, this.$data)
+        },
+        created() { //没有el但是有data
+            console.log('created', this.$el, this.$data)
+        },
+        beforeMount() { //编译模板挂载之前
+            console.log('beforeMount', this.$el, this.$data)
+        },
+        mounted() { //挂载完成
+            console.log('mounted', this.$el, this.$data)
+        },
+        beforeUpdate() { //更新之前
+            console.log('beforeUpdate', document.getElementById('h1').innerHTML, this.$el, this.$data)
+        },
+        updated() { //更新之后
+            console.log('updated', document.getElementById('h1').innerHTML, this.$el, this.$data)
+        },
+        beforeDestroy() { //销毁前
+            console.log('beforeDestroy', document.getElementById('h1').innerHTML, this.$el, this.$data)
+
+        },
+        destroyed() { //销毁后
+            console.log('destroyed', document.getElementById('h1').innerHTML, this.$el, this.$data)
+
+        },
+
+
+    })
+</script>
+
+</html>

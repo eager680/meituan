@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .a {
+        background-color: pink;
+    }
+    
+    .b {
+        border: 5px solid black;
+    }
+</style>
+
+<body>
+    <div id='app'> {{msg}} {{count+1}} {{isok?"ok":"no"}}
+        <div v-html="msg"></div>
+        <h2 v-bind:class="classA">csdn</h2>
+        <h2 v-bind:class="{'a':isA,'b':isB}">nbcp</h2>
+        <hr>
+        <div v-if="isLogin">你好</div>
+        <div v-else>请登录</div>
+        <div v-if="type===1">A</div>
+        <div v-else-if="type===2">B</div>
+        <div v-else>C</div>
+        <hr>
+        <div v-show="Show">你好呀</div>
+        <hr>
+        <h2>{{count}}</h2>
+        <button v-on:click="add($event)">click</button>
+        <a href="http://www.baidu.com" @click.prevent='fn()'>百度</a>
+        <!-- 用@click.prevent='fn()'来阻止事件冒泡 -->
+        <ul>
+            <li v-for='item,index in arr' :key='index'>{{item}} {{index}}</li>
+            <li v-for='item,key in obj' :key='key'> {{key}} {{item}}</li>
+        </ul>
+        <hr>
+        <h2>name is :{{name}}</h2>
+        <input type="text" v-model="name">
+        <hr>
+        <h2>sex is :{{sex}}</h2>
+        <input type="radio" v-model='sex' value="man">man
+        <input type="radio" v-model='sex' value="woman">woman
+        <hr>
+        <h2>aihao:{{hobby}}</h2>
+        <input type="checkbox" v-model='hobby' value="eat">eat
+        <input type="checkbox" v-model='hobby' value="sleep">sleep
+        <input type="checkbox" v-model='hobby' value="work">work
+
+    </div>
+
+
+    <script src=".\vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '<span>hello Vue</span>',
+
+                isok: true,
+                classA: "a",
+                isA: false,
+                isB: true,
+                isLogin: false,
+                type: 2,
+                Show: 1,
+                count: 0,
+                arr: ['a', 'b', 'c'],
+                obj: {
+                    name: 'jack',
+                    age: 18,
+                    gender: 'man'
+                },
+                name: '',
+                sex: '',
+                hobby: ['sleep'],
+            },
+            methods: {
+                add(e) {
+                    this.count++;
+                    console.log(e.target)
+                },
+                fn() {
+                    console.log('点击跳转')
+                }
+
+            }
+        })
+        console.log(vm.msg)
+        console.log(vm.$el)
+        console.log(vm.$data)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>源字符串：{{msg}}</h1>
+        <h1>computed反转后的字符串：{{reverseMsg}}</h1>
+        <!-- <h1>反转后的字符串：{{msg.字符串变数组('').数组调头().数组变字符串('')}}</h1> -->
+        <h1>methods反转后的字符串：{{ reverseMethod()}}</h1>
+        <hr>
+        <h3>前名字是：{{firstName}}</h3>
+        <h3>后名字是：{{lastName}}</h3>
+        <h3>全名字是：{{fullName}}</h3>
+
+        <button @click='change()'>改名</button>
+    </div>
+</body>
+<script src=".\vue.js"></script>
+<script>
+    new Vue({
+        el: ' #app ',
+        data: {
+            msg: 'WXYZ ',
+            firstName: 'MAC ',
+            lastName: 'book '
+        },
+        computed: { //这个计算结果放在缓存里，下次再算就在缓存里拿，
+            //相比之下这个性能会好一些
+            reverseMsg: function() {
+                return this.msg.split(' ').reverse().join(' ')
+            },
+            // fullName: function() {
+            //     return this.firstName + " " + this.lastName
+            // },
+            fullName: {
+                get() {
+                    return this.firstName + " " + this.lastName
+
+                },
+                set(newValue) {
+                    console.log(newValue)
+                    let name = newValue.split(' ')
+                    this.firstName = name[0]
+                    this.lastName = name[1]
+                },
+            },
+        },
+        methods: { //这个计算值每次都是重新计算的，
+            //    如果不需要结果放 缓存里面，就用这个方法
+            reverseMethod() {
+                return this.msg.split(' ').reverse().join(' ')
+            },
+            change() {
+                this.fullName = '苹果 电脑 '
+            }
+        }
+    })
+</script>
+
+</html>
